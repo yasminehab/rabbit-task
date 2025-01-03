@@ -12,7 +12,7 @@ export class ProductRepository {
     const take = Number(limit);
 
     const where: any = {
-      ...(category && { category: { equals: category, mode: 'insensitive' } }),
+      ...(category && { category: { contains: category, mode: 'insensitive' } }),
       ...(area && { area }),
       ...(search && {
         OR: [
