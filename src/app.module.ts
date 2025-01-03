@@ -4,11 +4,20 @@ import { AppService } from './app.service';
 import { PrismaService } from './prisma/prisma.service';
 import { ProductModule } from './product/product.module';
 import { OrderModule } from './order/order.module';
+import { CacheModule } from '@nestjs/cache-manager';
 
 @Module({
-  imports: [ProductModule, OrderModule],
+  imports: [
+    CacheModule.register({
+      isGlobal: true,
+      ttl: 60 * 5, // 5 minutes
+    }),
+    ProductModule,
+    OrderModule,
+  ],
   controllers: [AppController],
   providers: [AppService, PrismaService],
   exports: [PrismaService],
 })
+
 export class AppModule {}
